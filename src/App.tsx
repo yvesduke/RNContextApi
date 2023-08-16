@@ -1,0 +1,49 @@
+import React from 'react';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import LoginScreen from './containers/LoginScreen';
+import HomeScreen from './containers/HomeScreen';
+import {MyContextProvider, useMyContext} from './contexts/MyContext';
+
+const Stack = createNativeStackNavigator();
+
+function App(): JSX.Element {
+
+  // const {isLogin, updateData} = useMyContext();
+  const {isLogin} = useMyContext();
+  
+
+  const getAuthStack = () => {
+    return (
+      <Stack.Group>
+        <Stack.Screen name="Login" component={LoginScreen} />
+      </Stack.Group>
+    );
+  };
+
+  const getMainStack = () => {
+    return (
+      <Stack.Group>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'Overivew'}}
+        />
+      </Stack.Group>
+    );
+  };
+
+  return (
+    <MyContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {isLogin ? getMainStack() : getAuthStack()}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </MyContextProvider>
+  );
+}
+
+export default App;

@@ -27,7 +27,7 @@ const getMainStack = () => {
       <Stack.Screen
       name="Home" 
       component={HomeScreen}
-      options={{title: 'Welcome'}}
+      options={{title: 'Home'}}
       />
     </Stack.Group>
   );

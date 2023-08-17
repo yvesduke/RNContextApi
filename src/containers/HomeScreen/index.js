@@ -10,7 +10,6 @@ const HomeScreen = () => {
   const fetchListFromApi = () => {
     setIsLoading(true);
 
-    // ApiHelper.get('/todos')
     ApiHelper.get('/todos')
       .then(response => {
         setMyListData(response);

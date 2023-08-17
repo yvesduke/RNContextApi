@@ -9,20 +9,12 @@ export function MyContextProvider({children}) {
   const updateData = value => {
     setIsLogin(value);
   };
-
-  // const contextValue = { isLogin, updateData };
-
+  
   return (
     <MyContext.Provider value={{isLogin, updateData} }>
       {children}
     </MyContext.Provider>
   );
-
-  // return (
-  //   <MyContext.Provider value={{isLogin, updateData}}>
-  //     {children}
-  //   </MyContext.Provider>
-  // );
 }
 
 export function useMyContext() {

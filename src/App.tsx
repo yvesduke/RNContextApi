@@ -9,38 +9,43 @@ import {MyContextProvider, useMyContext} from './contexts/MyContext';
 
 const Stack = createNativeStackNavigator();
 
+const Nav = () => {
+
+const {isLogin} = useMyContext();
+
+const getAuthStack = () => {
+  return (
+    <Stack.Group>
+      <Stack.Screen name="Login" component={LoginScreen}/>
+    </Stack.Group>
+  );
+};
+
+const getMainStack = () => {
+  return (
+    <Stack.Group>
+      <Stack.Screen
+      name="Home" 
+      component={HomeScreen}
+      options={{title: 'Welcome'}}
+      />
+    </Stack.Group>
+  );
+};
+
+  return (
+    <Stack.Navigator>
+      {isLogin ? getMainStack() : getAuthStack() }
+    </Stack.Navigator>
+  );
+};
+
 function App(): JSX.Element {
-
-  // const {isLogin, updateData} = useMyContext();
-  const {isLogin} = useMyContext();
-  
-
-  const getAuthStack = () => {
-    return (
-      <Stack.Group>
-        <Stack.Screen name="Login" component={LoginScreen} />
-      </Stack.Group>
-    );
-  };
-
-  const getMainStack = () => {
-    return (
-      <Stack.Group>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Overivew'}}
-        />
-      </Stack.Group>
-    );
-  };
 
   return (
     <MyContextProvider>
       <NavigationContainer>
-        <Stack.Navigator>
-          {isLogin ? getMainStack() : getAuthStack()}
-        </Stack.Navigator>
+          <Nav />
       </NavigationContainer>
     </MyContextProvider>
   );
